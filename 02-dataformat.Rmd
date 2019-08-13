@@ -1,3 +1,50 @@
-# Literature
+# Input Data Format {#dataformat}
 
-Here is a review of existing methods.
+The online tool request two files for input. One file includes abundance for each protein and the other includes sample information in the experiment. 
+
+```{r library, echo=FALSE}
+library(kableExtra)
+```
+
+## Protein File
+The first column of the file is the id for each protein with header "Protein" in the first row. The second column and the following are the abundance of protein for each sample witch a uniq column name in the first row. An example protein file is shown in Table \@ref(tab:protein).
+
+```{r protein, echo=FALSE}
+protein.single <- read.table("data/protein.single.csv", sep = ",", header = TRUE, 
+                             stringsAsFactors = FALSE)
+protein.single[,2:ncol(protein.single)] <- round(protein.single[,2:ncol(protein.single)], 0)
+protein.single.show <- protein.single[,c(1:5, 9:11)]
+cname <- colnames(protein.single.show)
+protein.single.show[,5] <- "..."
+cname[5] <- "..."
+colnames(protein.single.show) <- cname
+protein.single.show <- protein.single.show[-5,]
+
+knitr::kable(
+  head(protein.single.show, 10),
+  booktabs = TRUE, row.names = FALSE,
+  caption = "Example of first 10 rows of the protein file"
+) %>% kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+```{block2, type='rmdimportant'}
+Please make sure the column name is unique for each column.
+```
+
+
+## Sample Information File
+
+Sample information file contains the experiment design information. It should contains at least two columns: **col.name** and **sample.id**. The first column is **col.name** which should be the same as the column names in protein file from the second column.  The column **sample.id** shows the sample id in the experiment. It could be the same as **col.name** if there is no technical replicate. 
+
+```{r sampleInfoSingle, echo=FALSE}
+sample.info.single <- read.table("data/sample.single.csv", sep = ",", header = TRUE, 
+                             stringsAsFactors = FALSE)
+sample.info.single.show <- sample.info.single[c(1:4, 8:10),]
+sample.info.single.show[4,] <- "..."
+
+knitr::kable(
+  sample.info.single.show,
+  booktabs = TRUE, row.names = FALSE,
+  caption = "Sample information file matched for Table 2.1"
+) %>% kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
