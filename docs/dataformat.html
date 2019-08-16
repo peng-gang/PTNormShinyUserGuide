@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Input Data Format | User Guide</title>
+  <meta name="description" content="User guide of an online tool for proteomics data normalization and batch effect correction" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Input Data Format | User Guide" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="User guide of an online tool for proteomics data normalization and batch effect correction" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Input Data Format | User Guide" />
+  
+  <meta name="twitter:description" content="User guide of an online tool for proteomics data normalization and batch effect correction" />
+  
+
+<meta name="author" content="Gang Peng" />
+
+
+<meta name="date" content="2019-08-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html">
+<link rel="next" href="methods.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">User Guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#general-illustration"><i class="fa fa-check"></i><b>0.1</b> General Illustration</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="dataformat.html"><a href="dataformat.html"><i class="fa fa-check"></i><b>2</b> Input Data Format</a><ul>
+<li class="chapter" data-level="2.1" data-path="dataformat.html"><a href="dataformat.html#protein-file"><i class="fa fa-check"></i><b>2.1</b> Protein File</a></li>
+<li class="chapter" data-level="2.2" data-path="dataformat.html"><a href="dataformat.html#df-sample"><i class="fa fa-check"></i><b>2.2</b> Sample Information File</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
+<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#single-batch"><i class="fa fa-check"></i><b>3.1</b> Single Batch</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="methods.html"><a href="methods.html#sample-loading"><i class="fa fa-check"></i><b>3.1.1</b> Sample Loading</a></li>
+<li class="chapter" data-level="3.1.2" data-path="methods.html"><a href="methods.html#median"><i class="fa fa-check"></i><b>3.1.2</b> Median</a></li>
+<li class="chapter" data-level="3.1.3" data-path="methods.html"><a href="methods.html#quantile"><i class="fa fa-check"></i><b>3.1.3</b> Quantile</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#multiple-batches"><i class="fa fa-check"></i><b>3.2</b> Multiple Batches</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="methods.html"><a href="methods.html#combat"><i class="fa fa-check"></i><b>3.2.1</b> ComBat</a></li>
+<li class="chapter" data-level="3.2.2" data-path="methods.html"><a href="methods.html#limma"><i class="fa fa-check"></i><b>3.2.2</b> Limma</a></li>
+<li class="chapter" data-level="3.2.3" data-path="methods.html"><a href="methods.html#irs"><i class="fa fa-check"></i><b>3.2.3</b> IRS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="output.html"><a href="output.html"><i class="fa fa-check"></i><b>4</b> Output Results</a><ul>
+<li class="chapter" data-level="4.1" data-path="output.html"><a href="output.html#boxplot"><i class="fa fa-check"></i><b>4.1</b> Boxplot</a></li>
+<li class="chapter" data-level="4.2" data-path="output.html"><a href="output.html#coefficient-of-variation-cv"><i class="fa fa-check"></i><b>4.2</b> Coefficient of Variation (CV)</a></li>
+<li class="chapter" data-level="4.3" data-path="output.html"><a href="output.html#sample-clustering"><i class="fa fa-check"></i><b>4.3</b> Sample Clustering</a></li>
+<li class="chapter" data-level="4.4" data-path="output.html"><a href="output.html#how-to-choose-normalization-and-batch-effect-correction-method"><i class="fa fa-check"></i><b>4.4</b> How to Choose Normalization and Batch Effect Correction Method</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="output.html"><a href="output.html#boxplot-1"><i class="fa fa-check"></i><b>4.4.1</b> Boxplot</a></li>
+<li class="chapter" data-level="4.4.2" data-path="output.html"><a href="output.html#coefficient-of-variation-cv-1"><i class="fa fa-check"></i><b>4.4.2</b> Coefficient of Variation (CV)</a></li>
+<li class="chapter" data-level="4.4.3" data-path="output.html"><a href="output.html#sample-clustering-1"><i class="fa fa-check"></i><b>4.4.3</b> Sample Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="output.html"><a href="output.html#download-results"><i class="fa fa-check"></i><b>4.5</b> Download Results</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">User Guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="dataformat" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Input Data Format</h1>
+<p>The online tool request two files for input. One file includes abundance for each protein and the other includes sample information in the experiment.</p>
+<div id="protein-file" class="section level2">
+<h2><span class="header-section-number">2.1</span> Protein File</h2>
+<p>The first column of the file is the id for each protein with header “Protein” in the first row. The second column and the following are the abundance of protein for each sample witch a unique column name in the first row. An example protein file is shown in Table <a href="dataformat.html#tab:protein">2.1</a>.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:protein">Table 2.1: </span>Example of first 10 rows of the protein file
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Protein
+</th>
+<th style="text-align:right;">
+TR1
+</th>
+<th style="text-align:right;">
+FS1
+</th>
+<th style="text-align:right;">
+FS2
+</th>
+<th style="text-align:left;">
+…
+</th>
+<th style="text-align:right;">
+MN1
+</th>
+<th style="text-align:right;">
+MN2
+</th>
+<th style="text-align:right;">
+TR2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A2A432
+</td>
+<td style="text-align:right;">
+12946
+</td>
+<td style="text-align:right;">
+23552
+</td>
+<td style="text-align:right;">
+19797
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+21634
+</td>
+<td style="text-align:right;">
+25137
+</td>
+<td style="text-align:right;">
+18322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2A5R2
+</td>
+<td style="text-align:right;">
+8421
+</td>
+<td style="text-align:right;">
+13330
+</td>
+<td style="text-align:right;">
+11759
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+14449
+</td>
+<td style="text-align:right;">
+16622
+</td>
+<td style="text-align:right;">
+11235
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2A690
+</td>
+<td style="text-align:right;">
+8773
+</td>
+<td style="text-align:right;">
+13603
+</td>
+<td style="text-align:right;">
+11344
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+14952
+</td>
+<td style="text-align:right;">
+16806
+</td>
+<td style="text-align:right;">
+13155
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Q6PDQ2
+</td>
+<td style="text-align:right;">
+1007
+</td>
+<td style="text-align:right;">
+1761
+</td>
+<td style="text-align:right;">
+1348
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+2027
+</td>
+<td style="text-align:right;">
+2510
+</td>
+<td style="text-align:right;">
+1614
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2ADY9
+</td>
+<td style="text-align:right;">
+941
+</td>
+<td style="text-align:right;">
+1534
+</td>
+<td style="text-align:right;">
+1466
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+1632
+</td>
+<td style="text-align:right;">
+1707
+</td>
+<td style="text-align:right;">
+1101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2AG50
+</td>
+<td style="text-align:right;">
+83568
+</td>
+<td style="text-align:right;">
+149689
+</td>
+<td style="text-align:right;">
+126248
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+140182
+</td>
+<td style="text-align:right;">
+163669
+</td>
+<td style="text-align:right;">
+116929
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2AGT5
+</td>
+<td style="text-align:right;">
+113268
+</td>
+<td style="text-align:right;">
+216990
+</td>
+<td style="text-align:right;">
+174870
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+201874
+</td>
+<td style="text-align:right;">
+235820
+</td>
+<td style="text-align:right;">
+169570
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2AHC3
+</td>
+<td style="text-align:right;">
+7311
+</td>
+<td style="text-align:right;">
+15867
+</td>
+<td style="text-align:right;">
+12267
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+14200
+</td>
+<td style="text-align:right;">
+16059
+</td>
+<td style="text-align:right;">
+12361
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2AJA9
+</td>
+<td style="text-align:right;">
+1309
+</td>
+<td style="text-align:right;">
+2513
+</td>
+<td style="text-align:right;">
+1773
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+2242
+</td>
+<td style="text-align:right;">
+2604
+</td>
+<td style="text-align:right;">
+2323
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A2AJI0
+</td>
+<td style="text-align:right;">
+20485
+</td>
+<td style="text-align:right;">
+39374
+</td>
+<td style="text-align:right;">
+30744
+</td>
+<td style="text-align:left;">
+…
+</td>
+<td style="text-align:right;">
+39205
+</td>
+<td style="text-align:right;">
+42535
+</td>
+<td style="text-align:right;">
+31750
+</td>
+</tr>
+</tbody>
+</table>
+
+<div class="rmdimportant">
+Please make sure the column name is unique for each column.
+</div>
+
+</div>
+<div id="df-sample" class="section level2">
+<h2><span class="header-section-number">2.2</span> Sample Information File</h2>
+<p>Sample information file contains the experiment design information. It should contain <strong><em>at least</em></strong> two columns: <strong>col.name</strong> and <strong>sample.id</strong> for single batch data. The first column is <strong>col.name</strong> which should be the same as the column names in protein file from the second column. The column <strong>sample.id</strong> shows the sample id in the experiment. It could be the same as <strong>col.name</strong> if there is no technical replicate. If there are technical replicates, the technical replicates should have the sample <strong>sample.id</strong> but different <strong>col.name</strong>. As shown in Table <a href="dataformat.html#tab:sampleInfoSingle">2.2</a>, TR1 and TR2 are technical replicates, they have same <strong>sample.id</strong> <em>TR</em> but different <strong>col.name</strong> <em>TR1</em> and <em>TR2</em>.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:sampleInfoSingle">Table 2.2: </span>Sample information file matched for Table 2.1
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+col.name
+</th>
+<th style="text-align:left;">
+sample.id
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 8em; ">
+TR1
+</td>
+<td style="text-align:left;width: 8em; ">
+TR
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+FS1
+</td>
+<td style="text-align:left;width: 8em; ">
+FS1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+FS2
+</td>
+<td style="text-align:left;width: 8em; ">
+FS2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+…
+</td>
+<td style="text-align:left;width: 8em; ">
+…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+MN1
+</td>
+<td style="text-align:left;width: 8em; ">
+MN1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+MN2
+</td>
+<td style="text-align:left;width: 8em; ">
+MN2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; ">
+TR2
+</td>
+<td style="text-align:left;width: 8em; ">
+TR
+</td>
+</tr>
+</tbody>
+</table>
+<p>Besides <strong>col.name</strong> and <strong>sample.id</strong>, sample information file also accepts the following information as a column in the file:</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column Name
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+batch
+</td>
+<td style="text-align:left;width: 30em; background-color: grey !important;">
+Batch effect information. E.g., the first three samples are in batch 1 and the last 3 samples are in batch 2 in Table 2.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+pool
+</td>
+<td style="text-align:left;width: 30em; background-color: grey !important;">
+Pooling information indicating whether a sample is a pooled sample or not.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+cv
+</td>
+<td style="text-align:left;width: 30em; background-color: grey !important;">
+Group information for coefficient of variation (CV) calculation. The samples with same group id in cv column are used for coefficient of variation calculation. Leave the column blank if the sample is not included for the calculation. E.g., P1 and P4 is not included for calculation; FS1 and FS2 are included in CV calculation for group FS; MN3 and MN4 are included in CV calculation for group MN in Table 2.3.
+</td>
+</tr>
+</tbody>
+</table>
+<p>If the input data contains multiple batches, a <strong>batch</strong> column must be included in the sample information file. An example of sample information file with all columns is list in Table <a href="dataformat.html#tab:sampleInfoMulti">2.3</a>.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:sampleInfoMulti">Table 2.3: </span>Example of sample information file with all columns
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+col.name
+</th>
+<th style="text-align:left;">
+sample.id
+</th>
+<th style="text-align:left;">
+batch
+</th>
+<th style="text-align:left;">
+pool
+</th>
+<th style="text-align:left;">
+cv
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 7em; ">
+P1
+</td>
+<td style="text-align:left;width: 7em; ">
+pool
+</td>
+<td style="text-align:left;width: 7em; ">
+1
+</td>
+<td style="text-align:left;width: 7em; ">
+TRUE
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 7em; ">
+FS1
+</td>
+<td style="text-align:left;width: 7em; ">
+FS1
+</td>
+<td style="text-align:left;width: 7em; ">
+1
+</td>
+<td style="text-align:left;width: 7em; ">
+FALSE
+</td>
+<td style="text-align:left;width: 7em; ">
+FS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 7em; ">
+FS2
+</td>
+<td style="text-align:left;width: 7em; ">
+FS2
+</td>
+<td style="text-align:left;width: 7em; ">
+1
+</td>
+<td style="text-align:left;width: 7em; ">
+FALSE
+</td>
+<td style="text-align:left;width: 7em; ">
+FS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 7em; ">
+…
+</td>
+<td style="text-align:left;width: 7em; ">
+…
+</td>
+<td style="text-align:left;width: 7em; ">
+…
+</td>
+<td style="text-align:left;width: 7em; ">
+…
+</td>
+<td style="text-align:left;width: 7em; ">
+…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 7em; ">
+MN3
+</td>
+<td style="text-align:left;width: 7em; ">
+MN3
+</td>
+<td style="text-align:left;width: 7em; ">
+2
+</td>
+<td style="text-align:left;width: 7em; ">
+FALSE
+</td>
+<td style="text-align:left;width: 7em; ">
+MN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 7em; ">
+MN4
+</td>
+<td style="text-align:left;width: 7em; ">
+MN4
+</td>
+<td style="text-align:left;width: 7em; ">
+2
+</td>
+<td style="text-align:left;width: 7em; ">
+FALSE
+</td>
+<td style="text-align:left;width: 7em; ">
+MN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 7em; ">
+P4
+</td>
+<td style="text-align:left;width: 7em; ">
+pool
+</td>
+<td style="text-align:left;width: 7em; ">
+2
+</td>
+<td style="text-align:left;width: 7em; ">
+TRUE
+</td>
+<td style="text-align:left;width: 7em; ">
+</td>
+</tr>
+</tbody>
+</table>
+
+<div class="rmdimportant">
+Please make sure that the col.name in the sample information file must have the same order as the column name in the protein file.
+</div>
+
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
