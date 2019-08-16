@@ -7,7 +7,7 @@ library(kableExtra)
 ```
 
 ## Protein File
-The first column of the file is the id for each protein with header "Protein" in the first row. The second column and the following are the abundance of protein for each sample witch a uniq column name in the first row. An example protein file is shown in Table \@ref(tab:protein).
+The first column of the file is the id for each protein with header "Protein" in the first row. The second column and the following are the abundance of protein for each sample witch a unique column name in the first row. An example protein file is shown in Table \@ref(tab:protein).
 
 ```{r protein, echo=FALSE}
 protein.single <- read.table("data/protein.single.csv", sep = ",", header = TRUE, 
@@ -32,9 +32,9 @@ Please make sure the column name is unique for each column.
 ```
 
 
-## Sample Information File
+## Sample Information File {#df-sample}
 
-Sample information file contains the experiment design information. It should contains at least two columns: **col.name** and **sample.id**. The first column is **col.name** which should be the same as the column names in protein file from the second column.  The column **sample.id** shows the sample id in the experiment. It could be the same as **col.name** if there is no technical replicate. 
+Sample information file contains the experiment design information. It should contain **_at least_** two columns: **col.name** and **sample.id** for single batch data. The first column is **col.name** which should be the same as the column names in protein file from the second column.  The column **sample.id** shows the sample id in the experiment. It could be the same as **col.name** if there is no technical replicate. If there are technical replicates, the technical replicates should have the sample **sample.id** but different **col.name**. As shown in Table \@ref(tab:sampleInfoSingle), TR1 and TR2 are technical replicates, they have same **sample.id** _TR_ but different **col.name** _TR1_ and _TR2_. 
 
 ```{r sampleInfoSingle, echo=FALSE}
 sample.info.single <- read.table("data/sample.single.csv", sep = ",", header = TRUE, 
@@ -46,5 +46,55 @@ knitr::kable(
   sample.info.single.show,
   booktabs = TRUE, row.names = FALSE,
   caption = "Sample information file matched for Table 2.1"
-) %>% kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+) %>% kable_styling(bootstrap_options = "striped", full_width = F, position = "left") %>%
+  column_spec(1:2, width = "8em")
 ```
+
+
+Besides **col.name** and **sample.id**, sample information file also accepts the following information as a column in the file:
+
+
+```{r colnameSP, echo=FALSE}
+colname.sp <- data.frame(
+  cn = c(
+    "batch", 
+    "pool",
+    "cv"
+  ),
+  description = c(
+    "Batch effect information. E.g., the first three samples are in batch 1 and the last 3 samples are in batch 2 in Table 2.3",
+    "Pooling information indicating whether a sample is a pooled sample or not.",
+    "Group information for coefficient of variation (CV) calculation. The samples with same group id in cv column are used for coefficient of variation calculation. Leave the column blank if the sample is not included for the calculation. E.g., P1 and P4 is not included for calculation; FS1 and FS2 are included in CV calculation for group FS; MN3 and MN4 are included in CV calculation for group MN in Table 2.3."
+  )
+)
+
+colnames(colname.sp) <- c("Column Name", "Description")
+kable(colname.sp) %>%
+  kable_styling(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "30em", background = "grey")
+```
+
+
+If the input data contains multiple batches, a **batch** column must be included in the sample information file. An example of sample information file with all columns is list in Table \@ref(tab:sampleInfoMulti).
+
+
+```{r sampleInfoMulti, echo=FALSE}
+sample.info.multi <- read.table("data/sample.multi.csv", sep = ",", header = TRUE,
+                                stringsAsFactors = FALSE)
+
+sample.info.multi.show <- sample.info.multi[c(1:4, 18:20),]
+sample.info.multi.show[4,] <- "..."
+
+knitr::kable(
+  sample.info.multi.show,
+  booktabs = TRUE, row.names = FALSE,
+  caption = "Example of sample information file with all columns"
+) %>% kable_styling(bootstrap_options = "striped", full_width = F, position = "left") %>%
+  column_spec(1:5, width = "7em")
+```
+
+```{block2, type='rmdimportant'}
+Please make sure that the col.name in the sample information file must have the same order as the column name in the protein file.
+```
+

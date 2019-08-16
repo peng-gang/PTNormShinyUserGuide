@@ -1,0 +1,43 @@
+# Methods {#methods}
+
+If there is only one batch in the input data, the online tool only take the data normalization step. If there are multiple batches in the input data, the online tool normalize the data in each batch first and then take the batch effect correction. Figure \@ref(fig:fig-workflow) shows the the general workflow of the tool.
+
+```{r fig-workflow, echo=FALSE, fig.cap="Workflow of the online tool", out.width="50%", fig.align="center"}
+knitr::include_graphics("images/PTNormFlowChart.png")
+```
+
+## Single Batch
+If the input data is in a single batch, the online tool only takes the normalization step. The following normalization methods are implemented in the online tool.
+
+### Sample Loading
+This method assumes that the summation of abundance for all the proteins is the same for all the sample. 
+
+### Median
+The median normalization is based on the assumption that the median of protein abundance is the sample for all the samples. 
+
+### Quantile
+In quantile normalization, the quantile of each sample is replaced by the mean of the same quantile of all the sample [@bolstad2003comparison]. 
+
+## Multiple Batches
+If the input data contains samples from multiple batches, the online tool will take normalization step for each batch first and then remove the batch effect between different batches. Now we have implemented the following batch effect correction methods in the tool.
+
+### ComBat
+We used ComBat method in R package _sva_. The details of the method can be file in the paper [@johnson2007adjusting]. 
+
+### Limma
+Function **removeBatchEffect** in R package _limma_ [@ritchie2015limma] is used to remove the batch effect.
+
+
+### IRS
+This method is based on the same pooling sample across different batches. It assumes that the pooling samples have the same protein abundance at different batches and calculates a scaling factor from this assumption. The details of this method can be found at [@plubell2017extended].
+
+
+
+
+
+
+
+
+
+
+

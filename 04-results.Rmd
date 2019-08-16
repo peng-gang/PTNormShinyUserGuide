@@ -1,0 +1,176 @@
+# Output Results {#output}
+
+```{r results-init, echo=FALSE}
+
+source("./r/functions.R")
+source("./r/parameter.R")
+
+input.protein.single <- read.csv(
+  "data/protein.single.csv", header = TRUE,
+  stringsAsFactors = FALSE
+)
+
+input.protein.multi <- read.csv(
+  "data/protein.multi.csv", header = TRUE,
+  stringsAsFactors = FALSE
+)
+
+input.sample.single <- read.csv(
+  "data/sample.single.csv", header = TRUE,
+  stringsAsFactors = FALSE
+)
+
+input.sample.multi <- read.csv(
+  "data/sample.multi.csv", header = TRUE,
+  stringsAsFactors = FALSE
+)
+```
+
+The online tool outputs three figures to show the results after data normalization.
+
+
+
+## Boxplot
+The boxplot shows the distribution of protein abundance for each sample. Figure \@ref(fig:boxplot-single) shows the boxplot of protein abundance for raw data, after median normalization and after quantile normalization. After data normalization, the distribution of protein abundance for each sample is more similar to each other. 
+
+```{r boxplot-single, echo=FALSE, fig.cap="Boxpolt of protein abundance for each sample in a single batch (before and after normlization)"}
+input.protein.single.clean <- data.clean(input.protein.single)
+idx.norm.single <- c("2","3")
+norm.data.single <- list()
+for(i in 1:length(idx.norm.single)){
+  idx <- as.integer(idx.norm.single[i])
+  norm.data.single[[i]] <- norm.functions[[idx]](input.protein.single.clean)
+}
+
+box.single <- box.compare.single(input.protein.single.clean, norm.data.single, idx.norm.single)
+box.single
+```
+
+For data from multiple batches, the online tool takes data normalization for each batch first (Figure \@ref(fig:boxplot-multi-nobatch)). The data within each batch is similar to each other after quantile normalization in each batch. However, samples in batch 1 have higher value than the samples in batch 2. Batch effect correction is necessary before further data analysis.
+
+```{r boxplot-multi-nobatch, echo=FALSE, warning=FALSE, fig.cap="Boxplot of protein abundance for ech sample in mulitple batches (before and after normalization without batch effect correction)"}
+
+input.protein.multi.clean <- data.clean(input.protein.multi)
+
+norm.data.multi.nobatch <- list()
+name.method.multi.nobatch <- NULL
+idx.norm.data <- 1
+
+idx.norm.multi <- c("3")
+
+for(i in 1:length(idx.norm.multi)){
+  norm.data.multi.nobatch[[idx.norm.data]] <- batch.correct(
+    input.protein.multi.clean, sample.info.multi$batch, 
+    as.integer(idx.norm.multi[i]), NULL, pool=sample.info.multi$pool)
+  name.method.multi.nobatch <- c(name.method.multi.nobatch,
+                                 names(norm.method)[as.integer(idx.norm.multi[i])])
+  idx.norm.data <- idx.norm.data + 1
+}
+
+box.multi.nobatch <- box.compare.multi(
+  input.protein.multi.clean, norm.data.multi.nobatch, 
+  name.method.multi.nobatch, sample.info.multi
+)
+box.multi.nobatch
+```
+
+After ComBat batch effect correction, the difference between the two batches is much smaller (Figure \@ref(fig:boxplot-multi-batch)).
+
+
+```{r boxplot-multi-batch, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, fig.cap="Boxplot of protein abundance for ech sample in mulitple batches (before and after normalization WITH batch effect correction)"}
+
+norm.data.multi.batch <- list()
+name.method.multi.batch <- NULL
+idx.norm.data <- 1
+
+idx.batch.multi <- c("1")
+
+for(i in 1:length(idx.batch.multi)){
+  for(j in 1:length(idx.norm.multi)){
+    norm.data.multi.batch[[idx.norm.data]] <- batch.correct(
+      input.protein.multi.clean, sample.info.multi$batch, 
+      as.integer(idx.norm.multi[j]), as.integer(idx.batch.multi[i]), 
+      pool=sample.info.multi$pool)
+    name.method.multi.batch <- c(
+      name.method.multi.batch, 
+      paste(names(batch.method)[as.integer(idx.batch.multi[i])],
+            names(norm.method)[as.integer(idx.norm.multi[j])], sep = "_"))
+    idx.norm.data <- idx.norm.data + 1
+  }
+}
+
+box.multi.batch <- box.compare.multi(
+  input.protein.multi.clean, norm.data.multi.batch, 
+  name.method.multi.batch, sample.info.multi
+)
+box.multi.batch
+```
+
+
+
+## Coefficient of Variation (CV)
+Coefficient of variation measures the dispersion of data distribution. If a sample has multiple technical replicates, CV between these technical replicates should be small (ideally, CV should be 0). The samples in same situation, e.g. in control group, with same phenotype, should also have relatively small CV. CV of these technical replicates or samples in same situation can be used to check the performance of the data normalization. 
+
+Users can use **cv** column in sample information file to set the samples to calculate CV between each other. If column **cv** is not set, the samples with same **sample.id** (technical replicates) will be used to calculate CV. If there is no technical replicates and column **cv** is not set, all samples are used to calculate CV, which may not be a good mark to show the performance of the normalization. Please check Section \@ref(df-sample) for details. 
+
+Figure \@ref(fig:cv-single) shows the CV between two technical replicates of raw data, after median and quantile normalization (example data for single batch). 
+
+```{r cv-single, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.cap="CV of technical replicates before and after normalization"}
+
+cv.single <- cv.compare.single(input.protein.single.clean, norm.data.single, idx.norm.single, sample.info.single)
+cv.single
+```
+
+Figure \@ref(fig:cv-multi) shows the CV in each **cv** group, which is set in **cv** column of sample information file (example data for multiple batches). 
+
+
+```{r cv-multi, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.cap="CV of samples in same cv group before and after normalization"}
+
+cv.multi <- cv.compare.multi(
+  input.protein.multi.clean, norm.data.multi.batch, 
+  name.method.multi.batch, sample.info.multi
+)
+cv.multi
+```
+
+
+
+## Sample Clustering
+Clustering method can also be used to choose normalization method. After data normalization, the technical replicates or the samples in the same condition should be clustered together [@ritchie2015limma]. 
+
+Figure \@ref(fig:cluster-nobatch) shows the clustering result of raw data and the data after quantile normalization in each batch only. The samples in batch 1 are one the left of the figure and the samples in batch 2 are one the right of the figure, which indicates the large difference between the two batches. For the raw data, there is now clear cluster within each batch, while most similar samples in each batch are clustered together after normalization in the batch, e.g. FN1 and FN2. 
+
+```{r cluster-nobatch, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, out.height="80%", fig.cap="Cluster of samples of raw data and after normalization without batch effect correction"}
+cluster.nobatch <- cluster.compare.multi(
+  input.protein.multi.clean, norm.data.multi.nobatch, 
+  name.method.multi.nobatch
+)
+cluster.nobatch
+```
+
+After both normalization and batch effect correction, the similar samples are clustered together even though they are not in the same batch (Figure \@ref(fig:cluster-batch)). 
+
+```{r cluster-batch, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, out.height="80%", fig.cap="Cluster of samples of raw data and after normalization without batch effect correction"}
+cluster.batch <- cluster.compare.multi(
+  input.protein.multi.clean, norm.data.multi.batch, 
+  name.method.multi.batch
+)
+cluster.batch
+```
+
+## How to Choose Normalization and Batch Effect Correction Method
+
+### Boxplot
+After normalization and batch effect correction, the boxplot should be similar to each other for all the samples. 
+
+### Coefficient of Variation (CV)
+Coefficient of variation between similar or technical replicate samples should be small, especially for technical replicates. 
+
+### Sample Clustering
+Similar samples should be clustered together. If there are no close connections between the samples, there should be no cluster groups. 
+
+
+## Download Results
+After checking the results after data normalization and batch effect correction, user can download the results by click **Download Results** button on the bottom of figures where users can select the normalization and batch effect correction methods. 
+
+
