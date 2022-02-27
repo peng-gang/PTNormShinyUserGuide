@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Input Data Format | User Guide</title>
   <meta name="description" content="User guide of an online tool for proteomics data normalization and batch effect correction" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Input Data Format | User Guide" />
   <meta property="og:type" content="book" />
@@ -24,22 +24,25 @@
 <meta name="author" content="Gang Peng" />
 
 
-<meta name="date" content="2019-08-15" />
+<meta name="date" content="2022-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html">
-<link rel="next" href="methods.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="methods.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,9 +50,36 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -67,31 +97,38 @@
 <li><a href="./">User Guide</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#general-illustration"><i class="fa fa-check"></i><b>0.1</b> General Illustration</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="dataformat.html"><a href="dataformat.html"><i class="fa fa-check"></i><b>2</b> Input Data Format</a><ul>
+<li class="chapter" data-level="2" data-path="dataformat.html"><a href="dataformat.html"><i class="fa fa-check"></i><b>2</b> Input Data Format</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="dataformat.html"><a href="dataformat.html#protein-file"><i class="fa fa-check"></i><b>2.1</b> Protein File</a></li>
 <li class="chapter" data-level="2.2" data-path="dataformat.html"><a href="dataformat.html#df-sample"><i class="fa fa-check"></i><b>2.2</b> Sample Information File</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
-<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#single-batch"><i class="fa fa-check"></i><b>3.1</b> Single Batch</a><ul>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#single-batch"><i class="fa fa-check"></i><b>3.1</b> Single Batch</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="methods.html"><a href="methods.html#sample-loading"><i class="fa fa-check"></i><b>3.1.1</b> Sample Loading</a></li>
 <li class="chapter" data-level="3.1.2" data-path="methods.html"><a href="methods.html#median"><i class="fa fa-check"></i><b>3.1.2</b> Median</a></li>
 <li class="chapter" data-level="3.1.3" data-path="methods.html"><a href="methods.html#quantile"><i class="fa fa-check"></i><b>3.1.3</b> Quantile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#multiple-batches"><i class="fa fa-check"></i><b>3.2</b> Multiple Batches</a><ul>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#multiple-batches"><i class="fa fa-check"></i><b>3.2</b> Multiple Batches</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="methods.html"><a href="methods.html#combat"><i class="fa fa-check"></i><b>3.2.1</b> ComBat</a></li>
 <li class="chapter" data-level="3.2.2" data-path="methods.html"><a href="methods.html#limma"><i class="fa fa-check"></i><b>3.2.2</b> Limma</a></li>
 <li class="chapter" data-level="3.2.3" data-path="methods.html"><a href="methods.html#irs"><i class="fa fa-check"></i><b>3.2.3</b> IRS</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="output.html"><a href="output.html"><i class="fa fa-check"></i><b>4</b> Output Results</a><ul>
+<li class="chapter" data-level="4" data-path="output.html"><a href="output.html"><i class="fa fa-check"></i><b>4</b> Output Results</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="output.html"><a href="output.html#boxplot"><i class="fa fa-check"></i><b>4.1</b> Boxplot</a></li>
 <li class="chapter" data-level="4.2" data-path="output.html"><a href="output.html#coefficient-of-variation-cv"><i class="fa fa-check"></i><b>4.2</b> Coefficient of Variation (CV)</a></li>
 <li class="chapter" data-level="4.3" data-path="output.html"><a href="output.html#sample-clustering"><i class="fa fa-check"></i><b>4.3</b> Sample Clustering</a></li>
-<li class="chapter" data-level="4.4" data-path="output.html"><a href="output.html#how-to-choose-normalization-and-batch-effect-correction-method"><i class="fa fa-check"></i><b>4.4</b> How to Choose Normalization and Batch Effect Correction Method</a><ul>
+<li class="chapter" data-level="4.4" data-path="output.html"><a href="output.html#how-to-choose-normalization-and-batch-effect-correction-method"><i class="fa fa-check"></i><b>4.4</b> How to Choose Normalization and Batch Effect Correction Method</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="output.html"><a href="output.html#boxplot-1"><i class="fa fa-check"></i><b>4.4.1</b> Boxplot</a></li>
 <li class="chapter" data-level="4.4.2" data-path="output.html"><a href="output.html#coefficient-of-variation-cv-1"><i class="fa fa-check"></i><b>4.4.2</b> Coefficient of Variation (CV)</a></li>
 <li class="chapter" data-level="4.4.3" data-path="output.html"><a href="output.html#sample-clustering-1"><i class="fa fa-check"></i><b>4.4.3</b> Sample Clustering</a></li>
@@ -116,10 +153,10 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="dataformat" class="section level1">
+<div id="dataformat" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Input Data Format</h1>
 <p>The online tool request two files for input. One file includes abundance for each protein and the other includes sample information in the experiment.</p>
-<div id="protein-file" class="section level2">
+<div id="protein-file" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Protein File</h2>
 <p>The first column of the file is the id for each protein with header “Protein” in the first row. The second column and the following are the abundance of protein for each sample witch a unique column name in the first row. An example protein file is shown in Table <a href="dataformat.html#tab:protein">2.1</a>.</p>
 <table class="table table-striped" style="width: auto !important; ">
@@ -421,9 +458,8 @@ A2AJI0
 <div class="rmdimportant">
 Please make sure the column name is unique for each column.
 </div>
-
 </div>
-<div id="df-sample" class="section level2">
+<div id="df-sample" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Sample Information File</h2>
 <p>Sample information file contains the experiment design information. It should contain <strong><em>at least</em></strong> two columns: <strong>col.name</strong> and <strong>sample.id</strong> for single batch data. The first column is <strong>col.name</strong> which should be the same as the column names in protein file from the second column. The column <strong>sample.id</strong> shows the sample id in the experiment. It could be the same as <strong>col.name</strong> if there is no technical replicate. If there are technical replicates, the technical replicates should have the sample <strong>sample.id</strong> but different <strong>col.name</strong>. As shown in Table <a href="dataformat.html#tab:sampleInfoSingle">2.2</a>, TR1 and TR2 are technical replicates, they have same <strong>sample.id</strong> <em>TR</em> but different <strong>col.name</strong> <em>TR1</em> and <em>TR2</em>.</p>
 <table class="table table-striped" style="width: auto !important; ">
@@ -687,7 +723,6 @@ TRUE
 Please make sure that the col.name in the sample information file must have the same order as the column name in the protein file.
 </div>
 
-
 </div>
 </div>
             </section>
@@ -700,12 +735,13 @@ Please make sure that the col.name in the sample information file must have the 
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -713,12 +749,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -733,7 +769,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

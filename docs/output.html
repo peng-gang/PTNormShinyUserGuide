@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Output Results | User Guide</title>
   <meta name="description" content="User guide of an online tool for proteomics data normalization and batch effect correction" />
-  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Output Results | User Guide" />
   <meta property="og:type" content="book" />
@@ -24,22 +24,25 @@
 <meta name="author" content="Gang Peng" />
 
 
-<meta name="date" content="2019-08-15" />
+<meta name="date" content="2022-02-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="methods.html">
-<link rel="next" href="references.html">
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link rel="prev" href="methods.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
 
 
 
@@ -47,9 +50,36 @@
 
 
 
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
@@ -67,31 +97,38 @@
 <li><a href="./">User Guide</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#general-illustration"><i class="fa fa-check"></i><b>0.1</b> General Illustration</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="dataformat.html"><a href="dataformat.html"><i class="fa fa-check"></i><b>2</b> Input Data Format</a><ul>
+<li class="chapter" data-level="2" data-path="dataformat.html"><a href="dataformat.html"><i class="fa fa-check"></i><b>2</b> Input Data Format</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="dataformat.html"><a href="dataformat.html#protein-file"><i class="fa fa-check"></i><b>2.1</b> Protein File</a></li>
 <li class="chapter" data-level="2.2" data-path="dataformat.html"><a href="dataformat.html#df-sample"><i class="fa fa-check"></i><b>2.2</b> Sample Information File</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a><ul>
-<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#single-batch"><i class="fa fa-check"></i><b>3.1</b> Single Batch</a><ul>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="methods.html"><a href="methods.html#single-batch"><i class="fa fa-check"></i><b>3.1</b> Single Batch</a>
+<ul>
 <li class="chapter" data-level="3.1.1" data-path="methods.html"><a href="methods.html#sample-loading"><i class="fa fa-check"></i><b>3.1.1</b> Sample Loading</a></li>
 <li class="chapter" data-level="3.1.2" data-path="methods.html"><a href="methods.html#median"><i class="fa fa-check"></i><b>3.1.2</b> Median</a></li>
 <li class="chapter" data-level="3.1.3" data-path="methods.html"><a href="methods.html#quantile"><i class="fa fa-check"></i><b>3.1.3</b> Quantile</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#multiple-batches"><i class="fa fa-check"></i><b>3.2</b> Multiple Batches</a><ul>
+<li class="chapter" data-level="3.2" data-path="methods.html"><a href="methods.html#multiple-batches"><i class="fa fa-check"></i><b>3.2</b> Multiple Batches</a>
+<ul>
 <li class="chapter" data-level="3.2.1" data-path="methods.html"><a href="methods.html#combat"><i class="fa fa-check"></i><b>3.2.1</b> ComBat</a></li>
 <li class="chapter" data-level="3.2.2" data-path="methods.html"><a href="methods.html#limma"><i class="fa fa-check"></i><b>3.2.2</b> Limma</a></li>
 <li class="chapter" data-level="3.2.3" data-path="methods.html"><a href="methods.html#irs"><i class="fa fa-check"></i><b>3.2.3</b> IRS</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="output.html"><a href="output.html"><i class="fa fa-check"></i><b>4</b> Output Results</a><ul>
+<li class="chapter" data-level="4" data-path="output.html"><a href="output.html"><i class="fa fa-check"></i><b>4</b> Output Results</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="output.html"><a href="output.html#boxplot"><i class="fa fa-check"></i><b>4.1</b> Boxplot</a></li>
 <li class="chapter" data-level="4.2" data-path="output.html"><a href="output.html#coefficient-of-variation-cv"><i class="fa fa-check"></i><b>4.2</b> Coefficient of Variation (CV)</a></li>
 <li class="chapter" data-level="4.3" data-path="output.html"><a href="output.html#sample-clustering"><i class="fa fa-check"></i><b>4.3</b> Sample Clustering</a></li>
-<li class="chapter" data-level="4.4" data-path="output.html"><a href="output.html#how-to-choose-normalization-and-batch-effect-correction-method"><i class="fa fa-check"></i><b>4.4</b> How to Choose Normalization and Batch Effect Correction Method</a><ul>
+<li class="chapter" data-level="4.4" data-path="output.html"><a href="output.html#how-to-choose-normalization-and-batch-effect-correction-method"><i class="fa fa-check"></i><b>4.4</b> How to Choose Normalization and Batch Effect Correction Method</a>
+<ul>
 <li class="chapter" data-level="4.4.1" data-path="output.html"><a href="output.html#boxplot-1"><i class="fa fa-check"></i><b>4.4.1</b> Boxplot</a></li>
 <li class="chapter" data-level="4.4.2" data-path="output.html"><a href="output.html#coefficient-of-variation-cv-1"><i class="fa fa-check"></i><b>4.4.2</b> Coefficient of Variation (CV)</a></li>
 <li class="chapter" data-level="4.4.3" data-path="output.html"><a href="output.html#sample-clustering-1"><i class="fa fa-check"></i><b>4.4.3</b> Sample Clustering</a></li>
@@ -116,97 +153,103 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="output" class="section level1">
+<div id="output" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Output Results</h1>
+<pre><code>## Loading required package: limma</code></pre>
+<pre><code>## Loading required package: mgcv</code></pre>
+<pre><code>## Loading required package: nlme</code></pre>
+<pre><code>## Warning: package &#39;nlme&#39; was built under R version 4.1.2</code></pre>
+<pre><code>## This is mgcv 1.8-38. For overview type &#39;help(&quot;mgcv-package&quot;)&#39;.</code></pre>
+<pre><code>## Loading required package: genefilter</code></pre>
+<pre><code>## Loading required package: BiocParallel</code></pre>
 <p>The online tool outputs three figures to show the results after data normalization.</p>
-<div id="boxplot" class="section level2">
+<div id="boxplot" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Boxplot</h2>
 <p>The boxplot shows the distribution of protein abundance for each sample. Figure <a href="output.html#fig:boxplot-single">4.1</a> shows the boxplot of protein abundance for raw data, after median normalization and after quantile normalization. After data normalization, the distribution of protein abundance for each sample is more similar to each other.</p>
-<div class="figure"><span id="fig:boxplot-single"></span>
+<div class="figure"><span style="display:block;" id="fig:boxplot-single"></span>
 <img src="PTNormShinyUserGuide_files/figure-html/boxplot-single-1.png" alt="Boxpolt of protein abundance for each sample in a single batch (before and after normlization)" width="672" />
 <p class="caption">
 Figure 4.1: Boxpolt of protein abundance for each sample in a single batch (before and after normlization)
 </p>
 </div>
 <p>For data from multiple batches, the online tool takes data normalization for each batch first (Figure <a href="output.html#fig:boxplot-multi-nobatch">4.2</a>). The data within each batch is similar to each other after quantile normalization in each batch. However, samples in batch 1 have higher value than the samples in batch 2. Batch effect correction is necessary before further data analysis.</p>
-<div class="figure"><span id="fig:boxplot-multi-nobatch"></span>
+<div class="figure"><span style="display:block;" id="fig:boxplot-multi-nobatch"></span>
 <img src="PTNormShinyUserGuide_files/figure-html/boxplot-multi-nobatch-1.png" alt="Boxplot of protein abundance for ech sample in mulitple batches (before and after normalization without batch effect correction)" width="672" />
 <p class="caption">
 Figure 4.2: Boxplot of protein abundance for ech sample in mulitple batches (before and after normalization without batch effect correction)
 </p>
 </div>
 <p>After ComBat batch effect correction, the difference between the two batches is much smaller (Figure <a href="output.html#fig:boxplot-multi-batch">4.3</a>).</p>
-<pre><code>## Standardizing Data across genes</code></pre>
-<div class="figure"><span id="fig:boxplot-multi-batch"></span>
+<pre><code>## Found 1 genes with uniform expression within a single batch (all zeros); these will not be adjusted for batch.</code></pre>
+<div class="figure"><span style="display:block;" id="fig:boxplot-multi-batch"></span>
 <img src="PTNormShinyUserGuide_files/figure-html/boxplot-multi-batch-1.png" alt="Boxplot of protein abundance for ech sample in mulitple batches (before and after normalization WITH batch effect correction)" width="672" />
 <p class="caption">
 Figure 4.3: Boxplot of protein abundance for ech sample in mulitple batches (before and after normalization WITH batch effect correction)
 </p>
 </div>
 </div>
-<div id="coefficient-of-variation-cv" class="section level2">
+<div id="coefficient-of-variation-cv" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Coefficient of Variation (CV)</h2>
 <p>Coefficient of variation measures the dispersion of data distribution. If a sample has multiple technical replicates, CV between these technical replicates should be small (ideally, CV should be 0). The samples in same situation, e.g. in control group, with same phenotype, should also have relatively small CV. CV of these technical replicates or samples in same situation can be used to check the performance of the data normalization.</p>
 <p>Users can use <strong>cv</strong> column in sample information file to set the samples to calculate CV between each other. If column <strong>cv</strong> is not set, the samples with same <strong>sample.id</strong> (technical replicates) will be used to calculate CV. If there is no technical replicates and column <strong>cv</strong> is not set, all samples are used to calculate CV, which may not be a good mark to show the performance of the normalization. Please check Section <a href="dataformat.html#df-sample">2.2</a> for details.</p>
 <p>Figure <a href="output.html#fig:cv-single">4.4</a> shows the CV between two technical replicates of raw data, after median and quantile normalization (example data for single batch).</p>
-<div class="figure"><span id="fig:cv-single"></span>
+<div class="figure"><span style="display:block;" id="fig:cv-single"></span>
 <img src="PTNormShinyUserGuide_files/figure-html/cv-single-1.png" alt="CV of technical replicates before and after normalization" width="672" />
 <p class="caption">
 Figure 4.4: CV of technical replicates before and after normalization
 </p>
 </div>
 <p>Figure <a href="output.html#fig:cv-multi">4.5</a> shows the CV in each <strong>cv</strong> group, which is set in <strong>cv</strong> column of sample information file (example data for multiple batches).</p>
-<div class="figure"><span id="fig:cv-multi"></span>
+<div class="figure"><span style="display:block;" id="fig:cv-multi"></span>
 <img src="PTNormShinyUserGuide_files/figure-html/cv-multi-1.png" alt="CV of samples in same cv group before and after normalization" width="672" />
 <p class="caption">
 Figure 4.5: CV of samples in same cv group before and after normalization
 </p>
 </div>
 </div>
-<div id="sample-clustering" class="section level2">
+<div id="sample-clustering" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> Sample Clustering</h2>
-<p>Clustering method can also be used to choose normalization method. After data normalization, the technical replicates or the samples in the same condition should be clustered together <span class="citation">(Ritchie et al. <a href="#ref-ritchie2015limma">2015</a>)</span>.</p>
+<p>Clustering method can also be used to choose normalization method. After data normalization, the technical replicates or the samples in the same condition should be clustered together <span class="citation">(<a href="#ref-ritchie2015limma" role="doc-biblioref">Ritchie et al. 2015</a>)</span>.</p>
 <p>Figure <a href="output.html#fig:cluster-nobatch">4.6</a> shows the clustering result of raw data and the data after quantile normalization in each batch only. The samples in batch 1 are one the left of the figure and the samples in batch 2 are one the right of the figure, which indicates the large difference between the two batches. For the raw data, there is now clear cluster within each batch, while most similar samples in each batch are clustered together after normalization in the batch, e.g. FN1 and FN2.</p>
-<div class="figure"><span id="fig:cluster-nobatch"></span>
+<div class="figure"><span style="display:block;" id="fig:cluster-nobatch"></span>
 <img src="PTNormShinyUserGuide_files/figure-html/cluster-nobatch-1.png" alt="Cluster of samples of raw data and after normalization without batch effect correction" width="672" height="80%" />
 <p class="caption">
 Figure 4.6: Cluster of samples of raw data and after normalization without batch effect correction
 </p>
 </div>
 <p>After both normalization and batch effect correction, the similar samples are clustered together even though they are not in the same batch (Figure <a href="output.html#fig:cluster-batch">4.7</a>).</p>
-<div class="figure"><span id="fig:cluster-batch"></span>
+<div class="figure"><span style="display:block;" id="fig:cluster-batch"></span>
 <img src="PTNormShinyUserGuide_files/figure-html/cluster-batch-1.png" alt="Cluster of samples of raw data and after normalization without batch effect correction" width="672" height="80%" />
 <p class="caption">
 Figure 4.7: Cluster of samples of raw data and after normalization without batch effect correction
 </p>
 </div>
 </div>
-<div id="how-to-choose-normalization-and-batch-effect-correction-method" class="section level2">
+<div id="how-to-choose-normalization-and-batch-effect-correction-method" class="section level2" number="4.4">
 <h2><span class="header-section-number">4.4</span> How to Choose Normalization and Batch Effect Correction Method</h2>
-<div id="boxplot-1" class="section level3">
+<div id="boxplot-1" class="section level3" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Boxplot</h3>
 <p>After normalization and batch effect correction, the boxplot should be similar to each other for all the samples.</p>
 </div>
-<div id="coefficient-of-variation-cv-1" class="section level3">
+<div id="coefficient-of-variation-cv-1" class="section level3" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Coefficient of Variation (CV)</h3>
 <p>Coefficient of variation between similar or technical replicate samples should be small, especially for technical replicates.</p>
 </div>
-<div id="sample-clustering-1" class="section level3">
+<div id="sample-clustering-1" class="section level3" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> Sample Clustering</h3>
 <p>Similar samples should be clustered together. If there are no close connections between the samples, there should be no cluster groups.</p>
 </div>
 </div>
-<div id="download-results" class="section level2">
+<div id="download-results" class="section level2" number="4.5">
 <h2><span class="header-section-number">4.5</span> Download Results</h2>
 <p>After checking the results after data normalization and batch effect correction, user can download the results by click <strong>Download Results</strong> button on the bottom of figures where users can select the normalization and batch effect correction methods.</p>
-
 
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-ritchie2015limma">
-<p>Ritchie, Matthew E, Belinda Phipson, Di Wu, Yifang Hu, Charity W Law, Wei Shi, and Gordon K Smyth. 2015. “Limma Powers Differential Expression Analyses for Rna-Sequencing and Microarray Studies.” <em>Nucleic Acids Research</em> 43 (7). Oxford University Press: e47–e47.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-ritchie2015limma" class="csl-entry">
+Ritchie, Matthew E, Belinda Phipson, Di Wu, Yifang Hu, Charity W Law, Wei Shi, and Gordon K Smyth. 2015. <span>“Limma Powers Differential Expression Analyses for RNA-Sequencing and Microarray Studies.”</span> <em>Nucleic Acids Research</em> 43 (7): e47–47.
 </div>
 </div>
             </section>
@@ -219,12 +262,13 @@ Figure 4.7: Cluster of samples of raw data and after normalization without batch
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
@@ -232,12 +276,12 @@ gitbook.start({
 "github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -252,7 +296,15 @@ gitbook.start({
 "link": null,
 "text": null
 },
+"view": {
+"link": null,
+"text": null
+},
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
