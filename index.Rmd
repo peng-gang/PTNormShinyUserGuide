@@ -15,7 +15,7 @@ This is a user guide of an online tool for proteomics data normalization and bat
 
 ## General Illustration
 
-Figure \@ref(fig:fig-userguide) shows the the general process to run the tool.
+Figure \@ref(fig:fig-userguide) shows the the general process to run the online tool.
 
 ```{r fig-userguide, echo=FALSE, fig.cap="How to run the tool", out.width="50%", fig.align="center"}
 knitr::include_graphics("images/PTNormUserGuide.png")
